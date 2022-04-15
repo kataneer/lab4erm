@@ -45,6 +45,23 @@ public:
 		else throw std::invalid_argument("DrawCross() works only for 9");
 		//todo Реализовать метод DrawCross позднее до конца	
 	}
+	void DrawZero(int a)
+	{
+		glColor3f(0.3, 0.8, 0.3);
+		if (a == 8)
+		{
+			glVertex3f(0.8, -0.5, 0);
+			glVertex3f(1.3, -0.5, 0);
+			glVertex3f(1.3, -0.5, 0);
+			glVertex3f(1.3, 0, 0);
+			glVertex3f(1.3, 0, 0);
+			glVertex3f(0.8, 0, 0);
+			glVertex3f(0.8, 0, 0);
+			glVertex3f(0.8, -0.5, 0);
+		}
+		else throw std::invalid_argument("DrawZero() works only for 8");
+		//todo Реализовать метод DrawZero позднее до конца	
+	}
 };
 
 Desk *mainff;
@@ -71,6 +88,11 @@ TEST_F(LabTest, Test2) {
 TEST_F(LabTest, Test3) {
 	mainf = new Desk();
 	EXPECT_NO_THROW(mainf->DrawCross(9));
+}
+
+TEST_F(LabTest, Test4) {
+	mainf = new Desk();
+	EXPECT_NO_THROW(mainf->DrawZero(8));
 }
 
 
@@ -119,6 +141,7 @@ void display(void)
 	glBegin(GL_LINES);
 	mainff->Draw();
 	mainff->DrawCross(9);
+	mainff->DrawZero(8);
 	glEnd();
 	glFlush();
 	glutSwapBuffers();
