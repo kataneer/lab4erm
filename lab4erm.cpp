@@ -11,6 +11,9 @@
 
 using namespace std;
 
+int flag = 1;
+int mass[9];
+
 class Desk {
 public:
 	void Draw()
@@ -34,6 +37,7 @@ public:
 	}
 	void DrawCross(int a)
 	{
+		printf("test\n");
 		glColor3f(0.7, 0.7, 0.7);
 		if (a == 9)
 		{
@@ -43,6 +47,7 @@ public:
 		  glVertex3f(0.1, 0, 0);
 		}
 		else throw std::invalid_argument("DrawCross() works only for 9");
+		glEnd();
 		//todo Реализовать метод DrawCross позднее до конца	
 	}
 	void DrawZero(int a)
@@ -106,13 +111,27 @@ void keyboard(int key, int x, int y)
 {
 	switch (key)
 	{
-	case GLUT_KEY_F1:
+	case GLUT_KEY_F8:
 	{
+			printf("test - F8 %i\n", flag);
+			if (flag == 0)
+				mass[7] = 0;
+			else throw std::invalid_argument("Works only for flag == 0");
+			flag = abs(flag - 1);
+	}
+	case GLUT_KEY_F9:
+	{
+		    printf("test - F9 %i\n", flag);
+		    if (flag == 1)
+				mass[8] = 1;
+			else throw std::invalid_argument("Works only for flag == 1");
+			flag = abs(flag - 1);
 	}
 	default:
 		break;
 	}
 	glutPostRedisplay();
+	//todo Реализовать метод keyboard позднее до конца	
 }
 
 void reshape(int w, int h)
@@ -130,6 +149,11 @@ void reshape(int w, int h)
 	glLoadIdentity();
 }
 
+TEST_F(LabTest, Test5) {
+	mainf = new Desk();
+	EXPECT_TRUE(keyboard != NULL);
+}
+
 void display(void)
 {
 	reshape(1536, 801);
@@ -140,8 +164,15 @@ void display(void)
 	glEnable(GL_LINE_SMOOTH);
 	glBegin(GL_LINES);
 	mainff->Draw();
-	mainff->DrawCross(9);
-	mainff->DrawZero(8);
+	for (int i = 0; i < 9; i++)
+	{
+		if (mass[i] == 0)
+			mainff->DrawZero(i + 1);
+		else if (mass[i] == 1)
+		{
+			mainff->DrawCross(i + 1);
+		}
+	}
 	glEnd();
 	glFlush();
 	glutSwapBuffers();
@@ -151,6 +182,8 @@ int main(int argc, char **argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
 	RUN_ALL_TESTS();
+	for (int i = 0; i < 9; i++)
+		mass[i] = -1;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(1920, 1080);
