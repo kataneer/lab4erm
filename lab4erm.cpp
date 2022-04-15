@@ -12,6 +12,25 @@ using namespace std;
 
 class Desk {
 public:
+	void Draw()
+	{
+		glVertex3f(0, -0.6, 0);
+		glVertex3f(0, 1.5, 0);
+		glVertex3f(0, 1.5, 0);
+		glVertex3f(2.1, 1.5, 0);
+		glVertex3f(2.1, 1.5, 0);
+		glVertex3f(2.1, -0.6, 0);
+		glVertex3f(2.1, -0.6, 0);
+		glVertex3f(0, -0.6, 0);
+		glVertex3f(0, 0.1, 0);
+		glVertex3f(2.1, 0.1, 0);
+		glVertex3f(0, 0.8, 0);
+		glVertex3f(2.1, 0.8, 0);
+		glVertex3f(0.7, -0.6, 0);
+		glVertex3f(0.7, 1.5, 0);
+		glVertex3f(1.4, -0.6, 0);
+		glVertex3f(1.4, 1.5, 0);
+	}
 };
 
 Desk *mainff;
@@ -28,6 +47,11 @@ protected:
 TEST_F(LabTest, Test1) {
 	mainf = new Desk();
 	EXPECT_TRUE(mainf != NULL);
+}
+
+TEST_F(LabTest, Test2) {
+	mainf = new Desk();
+	EXPECT_NO_FATAL_FAILURE(mainf->Draw());
 }
 
 void init(void)
@@ -73,7 +97,7 @@ void display(void)
 	glLineWidth(15.0);
 	glEnable(GL_LINE_SMOOTH);
 	glBegin(GL_LINES);
-	//mainff->Draw();
+	mainff->Draw();
 	glEnd();
 	glFlush();
 	glutSwapBuffers();
