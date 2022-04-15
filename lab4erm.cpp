@@ -422,9 +422,28 @@ void win()
 	}
 }
 
+void draw()
+{
+	int fd = -1;
+	for (int i = 0; i < 9; i++)
+	{
+		if (mass[i] == -1)
+		{
+			fd = 0;
+		}
+	}
+	if (fd == -1)
+		printf("Draw\n");
+}
+
 TEST_F(LabTest, Test9) {
 	mainf = new Desk();
 	EXPECT_NO_THROW(win());
+}
+
+TEST_F(LabTest, Test10) {
+	mainf = new Desk();
+	EXPECT_NO_THROW(draw());
 }
 
 
@@ -448,6 +467,7 @@ void display(void)
 		}
 	}
 	win();
+	draw();
 	glEnd();
 	glFlush();
 	glutSwapBuffers();
