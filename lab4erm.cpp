@@ -130,14 +130,14 @@ public:
 		}
 		else if (a == 3)
 		{
-			glVertex3f(0.1, 0.2, 0);
-			glVertex3f(0.6, 0.2, 0);
-			glVertex3f(0.6, 0.2, 0);
-			glVertex3f(0.6, 0.7, 0);
-			glVertex3f(0.6, 0.7, 0);
-			glVertex3f(0.1, 0.7, 0);
-			glVertex3f(0.1, 0.7, 0);
-			glVertex3f(0.1, 0.2, 0);
+			glVertex3f(0.1, 0.9, 0);
+			glVertex3f(0.6, 0.9, 0);
+			glVertex3f(0.6, 0.9, 0);
+			glVertex3f(0.6, 1.4, 0);
+			glVertex3f(0.6, 1.4, 0);
+			glVertex3f(0.1, 1.4, 0);
+			glVertex3f(0.1, 1.4, 0);
+			glVertex3f(0.1, 0.9, 0);
 		}
 		else if (a == 4)
 		{
@@ -323,9 +323,9 @@ void keyboard(int key, int x, int y)
 	case GLUT_KEY_F5:
 	{
 			printf("test - F5 %i\n", flag);
-			if (flag == 0)
-				mass[4] = 0;
-			else mass[4] = 1;
+			if (flag == 1)
+				mass[4] = 1;
+			else mass[4] = 0;
 			flag = abs(flag - 1);
 			break;
 	}
@@ -350,8 +350,8 @@ void keyboard(int key, int x, int y)
 	case GLUT_KEY_F8:
 	{
 			printf("test - F8 %i\n", flag);
-			if (flag == 0)
-				mass[7] = 0;
+			if (flag == 1)
+				mass[7] = 1;
 			else mass[7] = 0;
 			flag = abs(flag - 1);
 			break;
@@ -393,14 +393,40 @@ TEST_F(LabTest, Test5) {
 
 void win()
 {
-	if (mass[2] == 1 && mass[5] == 1 && mass[8] == 1)
+	glColor3f(1, 0.3, 0.3);
+	for (int i = 0; i < 3; i++)
+	{
+		if ((mass[3 * i] == mass[3 * i + 1]) && (mass[3 * i] == mass[3 * i + 2]) && (mass[3 * i] != -1))
+		{
+			glVertex3f(0.1, 1.15 - 0.7 * i, 0);
+			glVertex3f(2.0, 1.15 - 0.7 * i, 0);
+		}
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		if ((mass[i] == mass[i + 3]) && (mass[i] == mass[i + 6]) && (mass[i] != -1))
+		{
+			glVertex3f(1.75 - 0.7 * i, 1.4, 0);
+			glVertex3f(1.75 - 0.7 * i, -0.5, 0);
+		}
+	}
+	if ((mass[0] == mass[4]) && (mass[0] == mass[8]) && (mass[0] != -1))
+	{
+		glVertex3f(1.75, 1.15, 0);
+		glVertex3f(0.35, -0.25, 0);
+	}
+	if ((mass[2] == mass[4]) && (mass[2] == mass[6]) && (mass[2] != -1))
 	{
 		glVertex3f(0.35, 1.15, 0);
-		glVertex3f(0.35, -0.25, 0);
-		flag = -1;
+		glVertex3f(1.75, -0.25, 0);
 	}
-	//todo: реализовать метод win позднее до конца
 }
+
+TEST_F(LabTest, Test9) {
+	mainf = new Desk();
+	EXPECT_NO_THROW(win());
+}
+
 
 void display(void)
 {
