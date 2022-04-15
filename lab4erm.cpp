@@ -37,23 +37,46 @@ public:
 	}
 	void DrawCross(int a)
 	{
-		printf("test\n");
 		glColor3f(0.7, 0.7, 0.7);
-		if (a == 9)
+		if (a == 3)
+		{
+			glVertex3f(0.1, 0.9, 0);
+			glVertex3f(0.6, 1.4, 0);
+			glVertex3f(0.6, 0.9, 0);
+			glVertex3f(0.1, 1.4, 0);
+		}
+		else if (a == 6)
+		{
+			glVertex3f(0.1, 0.2, 0);
+			glVertex3f(0.6, 0.7, 0);
+			glVertex3f(0.6, 0.2, 0);
+			glVertex3f(0.1, 0.7, 0);
+		}
+		else if (a == 9)
 		{
 		  glVertex3f(0.1, -0.5, 0);
 		  glVertex3f(0.6, 0, 0);
 		  glVertex3f(0.6, -0.5, 0);
 		  glVertex3f(0.1, 0, 0);
 		}
-		else throw std::invalid_argument("DrawCross() works only for 9");
-		glEnd();
+		else throw std::invalid_argument("DrawCross() works only for 3, 6 and 9");
 		//todo Реализовать метод DrawCross позднее до конца	
 	}
 	void DrawZero(int a)
 	{
 		glColor3f(0.3, 0.8, 0.3);
-		if (a == 8)
+		if (a == 5)
+		{
+			glVertex3f(0.8, 0.2, 0);
+			glVertex3f(1.3, 0.2, 0);
+			glVertex3f(1.3, 0.2, 0);
+			glVertex3f(1.3, 0.7, 0);
+			glVertex3f(1.3, 0.7, 0);
+			glVertex3f(0.8, 0.7, 0);
+			glVertex3f(0.8, 0.7, 0);
+			glVertex3f(0.8, 0.2, 0);
+		}
+		else if (a == 8)
 		{
 			glVertex3f(0.8, -0.5, 0);
 			glVertex3f(1.3, -0.5, 0);
@@ -64,7 +87,7 @@ public:
 			glVertex3f(0.8, 0, 0);
 			glVertex3f(0.8, -0.5, 0);
 		}
-		else throw std::invalid_argument("DrawZero() works only for 8");
+		else throw std::invalid_argument("DrawZero() works only for 5 and 8");
 		//todo Реализовать метод DrawZero позднее до конца	
 	}
 };
@@ -100,6 +123,13 @@ TEST_F(LabTest, Test4) {
 	EXPECT_NO_THROW(mainf->DrawZero(8));
 }
 
+TEST_F(LabTest, Test6) {
+	mainf = new Desk();
+	EXPECT_NO_THROW(mainf->DrawCross(3));
+	EXPECT_NO_THROW(mainf->DrawCross(6));
+	EXPECT_NO_THROW(mainf->DrawZero(5));
+}
+
 
 void init(void)
 {
@@ -111,6 +141,33 @@ void keyboard(int key, int x, int y)
 {
 	switch (key)
 	{
+	case GLUT_KEY_F3:
+	{
+			printf("test - F3 %i\n", flag);
+			if (flag == 1)
+				mass[2] = 1;
+			else throw std::invalid_argument("Works only for flag == 1");
+			flag = abs(flag - 1);
+			break;
+	}
+	case GLUT_KEY_F5:
+	{
+			printf("test - F5 %i\n", flag);
+			if (flag == 0)
+				mass[4] = 0;
+			else throw std::invalid_argument("Works only for flag == 0");
+			flag = abs(flag - 1);
+			break;
+	}
+	case GLUT_KEY_F6:
+	{
+			printf("test - F6 %i\n", flag);
+			if (flag == 1)
+				mass[5] = 1;
+			else throw std::invalid_argument("Works only for flag == 1");
+			flag = abs(flag - 1);
+			break;
+	}
 	case GLUT_KEY_F8:
 	{
 			printf("test - F8 %i\n", flag);
@@ -118,6 +175,7 @@ void keyboard(int key, int x, int y)
 				mass[7] = 0;
 			else throw std::invalid_argument("Works only for flag == 0");
 			flag = abs(flag - 1);
+			break;
 	}
 	case GLUT_KEY_F9:
 	{
@@ -126,6 +184,7 @@ void keyboard(int key, int x, int y)
 				mass[8] = 1;
 			else throw std::invalid_argument("Works only for flag == 1");
 			flag = abs(flag - 1);
+			break;
 	}
 	default:
 		break;
@@ -154,6 +213,17 @@ TEST_F(LabTest, Test5) {
 	EXPECT_TRUE(keyboard != NULL);
 }
 
+void win()
+{
+	if (mass[2] == 1 && mass[5] == 1 && mass[8] == 1)
+	{
+		glVertex3f(0.35, 1.15, 0);
+		glVertex3f(0.35, -0.25, 0);
+		flag = -1;
+	}
+	//todo: реализовать метод win позднее до конца
+}
+
 void display(void)
 {
 	reshape(1536, 801);
@@ -173,6 +243,7 @@ void display(void)
 			mainff->DrawCross(i + 1);
 		}
 	}
+	win();
 	glEnd();
 	glFlush();
 	glutSwapBuffers();
