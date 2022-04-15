@@ -38,12 +38,40 @@ public:
 	void DrawCross(int a)
 	{
 		glColor3f(0.7, 0.7, 0.7);
-		if (a == 3)
+		if (a == 1)
+		{
+			glVertex3f(1.5, 0.9, 0);
+			glVertex3f(2.0, 1.4, 0);
+			glVertex3f(2.0, 0.9, 0);
+			glVertex3f(1.5, 1.4, 0);
+		}
+		else if (a == 2)
+		{
+			glVertex3f(0.8, 0.9, 0);
+			glVertex3f(1.3, 1.4, 0);
+			glVertex3f(1.3, 0.9, 0);
+			glVertex3f(0.8, 1.4, 0);
+		}
+		else if (a == 3)
 		{
 			glVertex3f(0.1, 0.9, 0);
 			glVertex3f(0.6, 1.4, 0);
 			glVertex3f(0.6, 0.9, 0);
 			glVertex3f(0.1, 1.4, 0);
+		}
+		else if (a == 4)
+		{
+			glVertex3f(1.5, 0.2, 0);
+			glVertex3f(2.0, 0.7, 0);
+			glVertex3f(2.0, 0.2, 0);
+			glVertex3f(1.5, 0.7, 0);
+		}
+		else if (a == 5)
+		{
+			glVertex3f(0.8, 0.2, 0);
+			glVertex3f(1.3, 0.7, 0);
+			glVertex3f(1.3, 0.2, 0);
+			glVertex3f(0.8, 0.7, 0);
 		}
 		else if (a == 6)
 		{
@@ -52,6 +80,20 @@ public:
 			glVertex3f(0.6, 0.2, 0);
 			glVertex3f(0.1, 0.7, 0);
 		}
+		else if (a == 7)
+		{
+			glVertex3f(1.5, -0.5, 0);
+			glVertex3f(2.0, 0, 0);
+			glVertex3f(2.0, -0.5, 0);
+			glVertex3f(1.5, 0, 0);
+		}
+		else if (a == 8)
+		{
+			glVertex3f(0.8, -0.5, 0);
+			glVertex3f(1.3, 0, 0);
+			glVertex3f(1.3, -0.5, 0);
+			glVertex3f(0.8, 0, 0);
+		}
 		else if (a == 9)
 		{
 		  glVertex3f(0.1, -0.5, 0);
@@ -59,8 +101,7 @@ public:
 		  glVertex3f(0.6, -0.5, 0);
 		  glVertex3f(0.1, 0, 0);
 		}
-		else throw std::invalid_argument("DrawCross() works only for 3, 6 and 9");
-		//todo Реализовать метод DrawCross позднее до конца	
+		else throw std::invalid_argument("DrawCross() works only for 1-9");
 	}
 	void DrawZero(int a)
 	{
@@ -130,6 +171,19 @@ TEST_F(LabTest, Test6) {
 	EXPECT_NO_THROW(mainf->DrawZero(5));
 }
 
+TEST_F(LabTest, Test7) {
+	mainf = new Desk();
+	EXPECT_NO_THROW(mainf->DrawCross(1));
+	EXPECT_NO_THROW(mainf->DrawCross(2));
+	EXPECT_NO_THROW(mainf->DrawCross(3));
+	EXPECT_NO_THROW(mainf->DrawCross(4));
+	EXPECT_NO_THROW(mainf->DrawCross(5));
+	EXPECT_NO_THROW(mainf->DrawCross(6));
+	EXPECT_NO_THROW(mainf->DrawCross(7));
+	EXPECT_NO_THROW(mainf->DrawCross(8));
+	EXPECT_NO_THROW(mainf->DrawCross(9));
+}
+
 
 void init(void)
 {
@@ -141,6 +195,24 @@ void keyboard(int key, int x, int y)
 {
 	switch (key)
 	{
+	case GLUT_KEY_F1:
+	{
+						printf("test - F1 %i\n", flag);
+						if (flag == 1)
+							mass[0] = 1;
+						else throw std::invalid_argument("Works only for flag == 1");
+						flag = abs(flag - 1);
+						break;
+	}
+	case GLUT_KEY_F2:
+	{
+						printf("test - F2 %i\n", flag);
+						if (flag == 1)
+							mass[1] = 1;
+						else throw std::invalid_argument("Works only for flag == 1");
+						flag = abs(flag - 1);
+						break;
+	}
 	case GLUT_KEY_F3:
 	{
 			printf("test - F3 %i\n", flag);
@@ -150,12 +222,21 @@ void keyboard(int key, int x, int y)
 			flag = abs(flag - 1);
 			break;
 	}
+	case GLUT_KEY_F4:
+	{
+						printf("test - F4 %i\n", flag);
+						if (flag == 1)
+							mass[3] = 1;
+						else throw std::invalid_argument("Works only for flag == 1");
+						flag = abs(flag - 1);
+						break;
+	}
 	case GLUT_KEY_F5:
 	{
 			printf("test - F5 %i\n", flag);
 			if (flag == 0)
 				mass[4] = 0;
-			else throw std::invalid_argument("Works only for flag == 0");
+			else mass[4] = 1;
 			flag = abs(flag - 1);
 			break;
 	}
@@ -167,6 +248,15 @@ void keyboard(int key, int x, int y)
 			else throw std::invalid_argument("Works only for flag == 1");
 			flag = abs(flag - 1);
 			break;
+	}
+	case GLUT_KEY_F7:
+	{
+						printf("test - F3 %i\n", flag);
+						if (flag == 1)
+							mass[6] = 1;
+						else throw std::invalid_argument("Works only for flag == 1");
+						flag = abs(flag - 1);
+						break;
 	}
 	case GLUT_KEY_F8:
 	{
