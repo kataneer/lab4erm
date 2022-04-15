@@ -10,6 +10,25 @@
 
 using namespace std;
 
+class Desk {
+public:
+};
+
+Desk *mainff;
+
+class LabTest : public ::testing::Test {
+protected:
+	virtual void SetUp()
+	{}
+	virtual void TearDown()
+	{}
+	Desk *mainf;
+};
+
+TEST_F(LabTest, Test1) {
+	mainf = new Desk();
+	EXPECT_TRUE(mainf != NULL);
+}
 
 void init(void)
 {
@@ -62,13 +81,13 @@ void display(void)
 
 int main(int argc, char **argv)
 {
-	//::testing::InitGoogleTest(&argc, argv);
-	//RUN_ALL_TESTS();
+	::testing::InitGoogleTest(&argc, argv);
+	RUN_ALL_TESTS();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(1920, 1080);
 	glutInitWindowPosition(0, 0);
-	glutCreateWindow("Разработка игры по TDD");
+	glutCreateWindow("Р Р°Р·СЂР°Р±РѕС‚РєР° РёРіСЂС‹ РїРѕ TDD");
 	init();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
