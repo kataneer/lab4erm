@@ -7,6 +7,7 @@
 #include "glaux.h"
 #include "gtest/gtest.h"
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -31,6 +32,19 @@ public:
 		glVertex3f(1.4, -0.6, 0);
 		glVertex3f(1.4, 1.5, 0);
 	}
+	void DrawCross(int a)
+	{
+		glColor3f(0.7, 0.7, 0.7);
+		if (a == 9)
+		{
+		  glVertex3f(0.1, -0.5, 0);
+		  glVertex3f(0.6, 0, 0);
+		  glVertex3f(0.6, -0.5, 0);
+		  glVertex3f(0.1, 0, 0);
+		}
+		else throw std::invalid_argument("DrawCross() works only for 9");
+		//todo Реализовать метод DrawCross позднее до конца	
+	}
 };
 
 Desk *mainff;
@@ -53,6 +67,12 @@ TEST_F(LabTest, Test2) {
 	mainf = new Desk();
 	EXPECT_NO_FATAL_FAILURE(mainf->Draw());
 }
+
+TEST_F(LabTest, Test3) {
+	mainf = new Desk();
+	EXPECT_NO_THROW(mainf->DrawCross(9));
+}
+
 
 void init(void)
 {
@@ -98,6 +118,7 @@ void display(void)
 	glEnable(GL_LINE_SMOOTH);
 	glBegin(GL_LINES);
 	mainff->Draw();
+	mainff->DrawCross(9);
 	glEnd();
 	glFlush();
 	glutSwapBuffers();
