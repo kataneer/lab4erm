@@ -106,7 +106,51 @@ public:
 	void DrawZero(int a)
 	{
 		glColor3f(0.3, 0.8, 0.3);
-		if (a == 5)
+		if (a == 1)
+		{
+			glVertex3f(1.5, 0.9, 0);
+			glVertex3f(2.0, 0.9, 0);
+			glVertex3f(2.0, 0.9, 0);
+			glVertex3f(2.0, 1.4, 0);
+			glVertex3f(2.0, 1.4, 0);
+			glVertex3f(1.5, 1.4, 0);
+			glVertex3f(1.5, 1.4, 0);
+			glVertex3f(1.5, 0.9, 0);
+		}
+		else if (a == 2)
+		{
+			glVertex3f(0.8, 0.9, 0);
+			glVertex3f(1.3, 0.9, 0);
+			glVertex3f(1.3, 0.9, 0);
+			glVertex3f(1.3, 1.4, 0);
+			glVertex3f(1.3, 1.4, 0);
+			glVertex3f(0.8, 1.4, 0);
+			glVertex3f(0.8, 1.4, 0);
+			glVertex3f(0.8, 0.9, 0);
+		}
+		else if (a == 3)
+		{
+			glVertex3f(0.1, 0.2, 0);
+			glVertex3f(0.6, 0.2, 0);
+			glVertex3f(0.6, 0.2, 0);
+			glVertex3f(0.6, 0.7, 0);
+			glVertex3f(0.6, 0.7, 0);
+			glVertex3f(0.1, 0.7, 0);
+			glVertex3f(0.1, 0.7, 0);
+			glVertex3f(0.1, 0.2, 0);
+		}
+		else if (a == 4)
+		{
+			glVertex3f(1.5, 0.2, 0);
+			glVertex3f(2.0, 0.2, 0);
+			glVertex3f(2.0, 0.2, 0);
+			glVertex3f(2.0, 0.7, 0);
+			glVertex3f(2.0, 0.7, 0);
+			glVertex3f(1.5, 0.7, 0);
+			glVertex3f(1.5, 0.7, 0);
+			glVertex3f(1.5, 0.2, 0);
+		}
+		else if (a == 5)
 		{
 			glVertex3f(0.8, 0.2, 0);
 			glVertex3f(1.3, 0.2, 0);
@@ -116,6 +160,28 @@ public:
 			glVertex3f(0.8, 0.7, 0);
 			glVertex3f(0.8, 0.7, 0);
 			glVertex3f(0.8, 0.2, 0);
+		}
+		else if (a == 6)
+		{
+			glVertex3f(0.1, 0.2, 0);
+			glVertex3f(0.6, 0.2, 0);
+			glVertex3f(0.6, 0.2, 0);
+			glVertex3f(0.6, 0.7, 0);
+			glVertex3f(0.6, 0.7, 0);
+			glVertex3f(0.1, 0.7, 0);
+			glVertex3f(0.1, 0.7, 0);
+			glVertex3f(0.1, 0.2, 0);
+		}
+		else if (a == 7)
+		{
+			glVertex3f(1.5, -0.5, 0);
+			glVertex3f(2.0, -0.5, 0);
+			glVertex3f(2.0, -0.5, 0);
+			glVertex3f(2.0, 0, 0);
+			glVertex3f(2.0, 0, 0);
+			glVertex3f(1.5, 0, 0);
+			glVertex3f(1.5, 0, 0);
+			glVertex3f(1.5, -0.5, 0);
 		}
 		else if (a == 8)
 		{
@@ -128,8 +194,18 @@ public:
 			glVertex3f(0.8, 0, 0);
 			glVertex3f(0.8, -0.5, 0);
 		}
+		else if (a == 9)
+		{
+			glVertex3f(0.1, -0.5, 0);
+			glVertex3f(0.6, -0.5, 0);
+			glVertex3f(0.6, -0.5, 0);
+			glVertex3f(0.6, 0, 0);
+			glVertex3f(0.6, 0, 0);
+			glVertex3f(0.1, 0, 0);
+			glVertex3f(0.1, 0, 0);
+			glVertex3f(0.1, -0.5, 0);
+		}
 		else throw std::invalid_argument("DrawZero() works only for 5 and 8");
-		//todo Реализовать метод DrawZero позднее до конца	
 	}
 };
 
@@ -184,6 +260,19 @@ TEST_F(LabTest, Test7) {
 	EXPECT_NO_THROW(mainf->DrawCross(9));
 }
 
+TEST_F(LabTest, Test8) {
+	mainf = new Desk();
+	EXPECT_NO_THROW(mainf->DrawZero(1));
+	EXPECT_NO_THROW(mainf->DrawZero(2));
+	EXPECT_NO_THROW(mainf->DrawZero(3));
+	EXPECT_NO_THROW(mainf->DrawZero(4));
+	EXPECT_NO_THROW(mainf->DrawZero(5));
+	EXPECT_NO_THROW(mainf->DrawZero(6));
+	EXPECT_NO_THROW(mainf->DrawZero(7));
+	EXPECT_NO_THROW(mainf->DrawZero(8));
+	EXPECT_NO_THROW(mainf->DrawZero(9));
+}
+
 
 void init(void)
 {
@@ -200,7 +289,7 @@ void keyboard(int key, int x, int y)
 						printf("test - F1 %i\n", flag);
 						if (flag == 1)
 							mass[0] = 1;
-						else throw std::invalid_argument("Works only for flag == 1");
+						else mass[0] = 0;
 						flag = abs(flag - 1);
 						break;
 	}
@@ -209,7 +298,7 @@ void keyboard(int key, int x, int y)
 						printf("test - F2 %i\n", flag);
 						if (flag == 1)
 							mass[1] = 1;
-						else throw std::invalid_argument("Works only for flag == 1");
+						else mass[1] = 0;
 						flag = abs(flag - 1);
 						break;
 	}
@@ -218,7 +307,7 @@ void keyboard(int key, int x, int y)
 			printf("test - F3 %i\n", flag);
 			if (flag == 1)
 				mass[2] = 1;
-			else throw std::invalid_argument("Works only for flag == 1");
+			else mass[2] = 0;
 			flag = abs(flag - 1);
 			break;
 	}
@@ -227,7 +316,7 @@ void keyboard(int key, int x, int y)
 						printf("test - F4 %i\n", flag);
 						if (flag == 1)
 							mass[3] = 1;
-						else throw std::invalid_argument("Works only for flag == 1");
+						else mass[3] = 0;
 						flag = abs(flag - 1);
 						break;
 	}
@@ -245,7 +334,7 @@ void keyboard(int key, int x, int y)
 			printf("test - F6 %i\n", flag);
 			if (flag == 1)
 				mass[5] = 1;
-			else throw std::invalid_argument("Works only for flag == 1");
+			else mass[5] = 0;
 			flag = abs(flag - 1);
 			break;
 	}
@@ -254,7 +343,7 @@ void keyboard(int key, int x, int y)
 						printf("test - F3 %i\n", flag);
 						if (flag == 1)
 							mass[6] = 1;
-						else throw std::invalid_argument("Works only for flag == 1");
+						else mass[6] = 0;
 						flag = abs(flag - 1);
 						break;
 	}
@@ -263,7 +352,7 @@ void keyboard(int key, int x, int y)
 			printf("test - F8 %i\n", flag);
 			if (flag == 0)
 				mass[7] = 0;
-			else throw std::invalid_argument("Works only for flag == 0");
+			else mass[7] = 0;
 			flag = abs(flag - 1);
 			break;
 	}
@@ -272,7 +361,7 @@ void keyboard(int key, int x, int y)
 		    printf("test - F9 %i\n", flag);
 		    if (flag == 1)
 				mass[8] = 1;
-			else throw std::invalid_argument("Works only for flag == 1");
+			else mass[8] = 0;
 			flag = abs(flag - 1);
 			break;
 	}
@@ -280,7 +369,6 @@ void keyboard(int key, int x, int y)
 		break;
 	}
 	glutPostRedisplay();
-	//todo Реализовать метод keyboard позднее до конца	
 }
 
 void reshape(int w, int h)
